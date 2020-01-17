@@ -1,0 +1,21 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <p>{{ title }}</p>
+  <p>{{ greetings() }}</p>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      title: 'Usando VueJS!'
+    },
+    methods: {
+      greetings() {
+        return 'Boa semana!'
+      }
+    }
+  })
+</script>

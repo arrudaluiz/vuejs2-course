@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app1">
+  <button @click="change">Alterar</button>
+  {{ title }}
+</div>
+
+<div id="app2">
+  <button @click="change">Alterar</button>
+  {{ title }}
+</div>
+
+<script>
+  new Vue({
+    el: '#app1',
+    data: {
+      title: 'Teste 1'
+    },
+    methods: {
+      change() {
+        this.title = `:${this.title}:`
+      }
+    }
+  })
+
+  new Vue({
+    el: '#app2',
+    data: {
+      title: 'Teste 2'
+    },
+    methods: {
+      change() {
+        this.title = `<${this.title}>`
+      }
+    }
+  })
+</script>

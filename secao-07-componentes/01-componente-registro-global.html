@@ -1,0 +1,30 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <counter></counter>
+  <counter></counter>
+  <counter></counter>
+</div>
+
+<script>
+  /* Registro global */
+  Vue.component('counter', {
+    template: `
+      <div>
+        <p>Contador: {{ counter }}</p>
+        <button v-on:click="counter++">+</button>
+        <button v-on:click="counter--">-</button>
+      </div>
+    `,
+    data() {
+      return {
+        counter: 0
+      }
+    }
+  })
+  
+  new Vue({
+    el: '#app',
+  })
+</script>

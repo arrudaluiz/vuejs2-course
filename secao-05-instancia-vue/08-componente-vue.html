@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <comp></comp>
+  <comp></comp>
+  <comp></comp>
+</div>
+
+<script>
+  Vue.component('comp', {
+    template: `
+      <div>
+        <h1>{{ lesson }}</h1>
+        <h2>{{ module }}</h2>
+        <button @click="changeLesson">Alterar Aula</button>
+        <button @click="changeModule">Alterar Módulo</button>
+      </div>
+    `,
+    data: function () {
+      return {
+        lesson: 'Aula: Usando Componente Vue',
+        module: 'Módulo: Instância Vue'
+      }
+    },
+    methods: {
+      changeLesson() {
+        this.lesson = `:${this.lesson}:`
+      },
+      changeModule() {
+        this.module = `<${this.module}>`
+      }
+    }
+  })
+
+  const vm = new Vue({
+    el: '#app',
+  })
+</script>

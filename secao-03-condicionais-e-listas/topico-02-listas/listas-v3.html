@@ -1,0 +1,44 @@
+<meta charset="UTF-8">
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <ul :style="{listStyle: 'none'}">
+    <li v-for="(color, index) in colors">{{ index + 1}}) {{ color }}</li>
+  </ul>
+  <hr>
+  <template v-for="(color, index) in colors">
+    <h1>{{ color }}</h1>
+    <p>{{ index }}</p>
+  </template>
+  <hr>
+  <div v-for="(color, i) in colors">
+    {{ color }} {{ i }}
+  </div>
+  <hr>
+  <table>
+    <tr>
+      <th>index</th>
+      <th v-for="(valor, key, index) in people[0]">{{ key }}</th>
+    </tr>
+    <tr v-for="(person, index) in people">
+      <td>{{ index }}</td>
+      <td v-for="(valor, key, index) in person">
+        {{ valor }}
+      </td>
+    </tr>
+  </table>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      colors: ['vermelho', 'verde', 'amarelo', 'azul'],
+      people: [
+        { name: 'Ana', age: 26, weight: 59 },
+        { name: 'Guilherme', age: 22, weight: 89 }
+      ]
+    }
+  })
+</script>

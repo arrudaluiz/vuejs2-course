@@ -1,0 +1,78 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<style>
+  .box {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .demo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+  }
+
+  .c1 {
+    background-color: red;
+  }
+
+  .c2 {
+    background-color: green;
+  }
+
+  .c3 {
+    background-color: blue;
+  }
+
+  .spin {
+    transform: rotate(45deg);
+  }
+</style>
+
+<div id="app">
+  <div class="box">
+    <div class="demo" :class="bgStyle" @click="applyC1 = !applyC1">clique</div>
+    <div class="demo" :class="[bgStyle, {spin: applySpin}]"></div>
+    <div class="demo" :class="cssClass">
+      <select>
+        <option value="0" @click="cssClass = 'c1'">Vermelho</option>
+        <option value="1" @click="cssClass = 'c2'">Verde</option>
+        <option value="2" @click="cssClass = 'c3'">Azul</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      applyC1: true,
+      applySpin: true,
+      cssClass: 'c1'
+    },
+    computed: {
+      bgStyle() {
+        return {
+          c1: this.applyC1,
+          c2: !this.applyC1
+        }
+      }
+    },
+    watch: {
+      cssClass(newClass, lastClass) {
+        console.log(lastClass, newClass)
+        return {
+          lastClass: false,
+          newClass: true
+        }
+      }
+    }
+  })
+</script>

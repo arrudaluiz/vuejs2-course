@@ -1,0 +1,60 @@
+#efeito {
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+}
+
+.destaque {
+	background-color: red;
+	width: 200px !important;
+}
+
+.encolher {
+	background-color: gray;
+	width: 50px !important;
+}
+
+/* Classes quadrado e azul criadas para o desafio 2 */
+.quadrado {
+	width: 150px;
+	height: 150px;
+	border: 1px solid black;
+}
+
+.azul {
+	background-color: blue;
+}
+
+/* Classe circulo criada para o desafio 3 */
+.circulo {
+	width: 150px;
+	height: 150px;
+	border: 1px solid black;
+	border-radius: 50%;
+}
+
+/* Classes verde e direita criadas para o desafio 4 */
+.verde {
+	background-color: green;
+}
+
+.direita {
+	float: right;
+}
+
+/* Classes progress-bar e progress criadas para o desafio 6 */
+.progress-bar {
+	width: 80%;
+	height: 30px;
+	background-color: #ccc;
+	border: 1px solid black;
+	border-radius: 15px;
+}
+
+.progress {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	background-color: #099;
+	border-radius: 15px;
+}

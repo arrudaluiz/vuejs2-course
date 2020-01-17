@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <template v-if="loggedIn">
+    <p v-if="name == ''">Navegando como anônimo</p>
+
+    <template v-else>
+      <p>Usuário logado: {{ name }}</p>
+      <p v-if="name =='admin'">Perfil: Administrador</p>
+    </template>
+  </template>
+
+  <template v-else>
+    <p>Nenhum usuário logado</p>
+    <input type="text" v-model="name">
+  </template>
+
+  <button @click="loggedIn = !loggedIn">{{ loggedIn ? 'Sair' : 'Entrar' }}</button>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      name: '',
+      loggedIn: false
+    }
+  })
+</script>

@@ -1,0 +1,52 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <p>{{ counter }}</p>
+  <button v-on:click="add(5, $event)">+ 1</button>
+  <div v-on:mousemove="refreshPos">
+    <p>Mouse: {{ x }} {{ y }}</p>
+    <p v-on:mousemove="stopPropag">Parar propagação através de função.</p>
+    <p v-on:mousemove.stop>Parar propagação através de modificador de evento.</p>
+    <!-- É possível encadear modificadores de evento como, por exemplo:
+        v-on:mousemove.stop.prevent
+      -->
+  </div>
+  <p><a href="https://vuejs.org/v2/guide/events.html#Event-Modifiers">Modificadores
+      de Evento</a></p>
+  <p><a v-on:click="preventNavigation"
+      href="https://vuejs.org/v2/guide/events.html#Event-Modifiers">Modificadores
+      de Evento
+      (Prevenir comportamento padrão através de função)</a></p>
+  <p><a v-on:click.prevent
+      href="https://vuejs.org/v2/guide/events.html#Event-Modifiers">Modificadores
+      de Evento (Prevenir
+      comportamento padrão através de modificador de evento)</a></p>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      counter: 0,
+      x: 0,
+      y: 0
+    },
+    methods: {
+      add(num, event) {
+        console.log(num, event)
+        this.counter += num
+      },
+      refreshPos(event) {
+        this.x = event.clientX
+        this.y = event.clientY
+      },
+      stopPropag(event) {
+        event.stopPropagation()
+      },
+      preventNavigation(event) {
+        event.preventDefault()
+      }
+    }
+  })
+</script>

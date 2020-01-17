@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles.css">
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Matador de Monstros</title>
+</head>
+
+<body>
+  <div id="monster-slayer">
+    <div class="panel">
+      <div class="char">
+        <h2 class="name">{{ player.name }}</h2>
+        <div class="hp-bar">
+          <div class="hp"
+              :class="[{caution: player.hp < 50}, {danger: player.hp < 20}]"
+              :style="[{width: player.hp + '%'}, updatePlayerHP]"></div>
+        </div>
+        {{ player.hp }}
+      </div>
+      <div class="char">
+        <h2 class="name">{{ monster.name }}</h2>
+        <div class="hp-bar">
+          <div class="hp"
+              :class="[{caution: monster.hp < 50}, {danger: monster.hp < 20}]"
+              :style="[{width: monster.hp + '%'}, updateMonsterHP]"></div>
+        </div>
+        {{ monster.hp }}
+      </div>
+    </div>
+
+    <div class="panel" v-show="status != 0">
+      <div class="sub-panel" :style="{color: finalMessage[getStatus].fontColor}">
+        <div class="historic">
+          <h1>{{ finalMessage[getStatus].title }}</h1>
+          <h3>{{ finalMessage[getStatus].message }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="sub-panel">
+        <button v-show="!ingame" @click="newGame" :style="{backgroundColor: 'mediumblue'}">Novo Jogo</button>
+        <div class="sub-panel" v-show="ingame">
+          <button @click="attack(false)" :style="{backgroundColor: 'maroon'}">Atacar</button>
+          <button @click="attack(true)" :style="{backgroundColor: 'indigo'}">Usar Magia</button>
+          <button @click="heal" :style="{backgroundColor: 'green'}">Curar</button>
+          <button @click="run()" :style="{backgroundColor: 'darkgrey'}">Fugir</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" v-show="turns.length">
+      <div class="historic">
+        <div class="turn" v-for="(turn, index) in turns">
+          {{ turns.length - index }}º turno
+          <p class="monster">{{ turn.monsterLog }}</p>
+          <p class="player">{{ turn.playerLog }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

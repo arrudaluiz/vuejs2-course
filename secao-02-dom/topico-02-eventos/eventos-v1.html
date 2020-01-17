@@ -1,0 +1,21 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <p>{{ counter }}</p>
+  <button v-on:click="add">+1</button>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      counter: 0
+    },
+    methods: {
+      add() {
+        this.counter++
+      }
+    },
+  })
+</script>

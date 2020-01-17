@@ -1,0 +1,40 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <p>
+    <button v-on:click="increment">Contador 1 ++</button>
+    <button v-on:click="decrement">Contador 1 --</button>
+  </p>
+  <p>Contador 1: {{ counter }}</p>
+  <p>Resultado: {{ result }} </p><br>
+  <p>
+    <button v-on:click="counter2++">Contador 2 ++</button>
+    <button v-on:click="counter2--">Contador 2 --</button>
+  </p>
+  <p>Contador 2: {{ counter2 }}</p>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      counter: 0,
+      counter2: 0
+    },
+    computed: {
+      result() {
+        console.log('Método computado result() chamado.')
+        return this.counter > 5 ? 'Contador maior que 5.' : 'Contador menor ou igual a 5.'
+      }
+    },
+    methods: {
+      increment() {
+        this.counter++
+      },
+      decrement() {
+        this.counter--
+      }
+    }
+  })
+</script>

@@ -1,0 +1,25 @@
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <p>Contador: {{ counter }}</p>
+  <p>{{ counter }} * 2 = {{ counter * 2 }}</p>
+  <p>Contador {{ counter > 10 ? 'maior que' : 'menor ou igual a' }} 10.</p>
+  <p>Contador é ímpar? R: {{ counter % 2 != 0 ? 'sim' : 'não' }}</p>
+  <button v-on:click="add()">+ 1</button>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      counter: 0,
+      odd: false
+    },
+    methods: {
+      add() {
+        this.counter++
+      }
+    }
+  })
+</script>

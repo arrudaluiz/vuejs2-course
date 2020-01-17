@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+  <button @click="change">Alterar</button>
+  {{ title }} - {{ newInfo }}
+</div>
+
+<script>
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      title: 'Teste'
+    },
+    methods: {
+      change() {
+        this.title = `:${this.title}:`
+      }
+    }
+  })
+
+  vm.newInfo = 'Teste'
+  console.log(vm.newInfo)
+</script>
