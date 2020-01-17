@@ -17,18 +17,16 @@
       <div class="char">
         <h2 class="name">{{ player.name }}</h2>
         <div class="hp-bar">
-          <div class="hp"
-              :class="[{caution: player.hp < 50}, {danger: player.hp < 20}]"
-              :style="[{width: player.hp + '%'}, updatePlayerHP]"></div>
+          <div class="hp" :class="[{caution: player.hp < 50}, {danger: player.hp < 20}]"
+            :style="[{width: player.hp + '%'}, updatePlayerHP]"></div>
         </div>
         {{ player.hp }}
       </div>
       <div class="char">
         <h2 class="name">{{ monster.name }}</h2>
         <div class="hp-bar">
-          <div class="hp"
-              :class="[{caution: monster.hp < 50}, {danger: monster.hp < 20}]"
-              :style="[{width: monster.hp + '%'}, updateMonsterHP]"></div>
+          <div class="hp" :class="[{caution: monster.hp < 50}, {danger: monster.hp < 20}]"
+            :style="[{width: monster.hp + '%'}, updateMonsterHP]"></div>
         </div>
         {{ monster.hp }}
       </div>
@@ -57,7 +55,10 @@
 
     <div class="panel" v-show="turns.length">
       <div class="historic">
-        <div class="turn" v-for="(turn, index) in turns">
+        <div class="turn"
+          v-for="(turn, index) in turns"
+          :key="index"
+        >
           {{ turns.length - index }}º turno
           <p class="monster">{{ turn.monsterLog }}</p>
           <p class="player">{{ turn.playerLog }}</p>
