@@ -2,16 +2,16 @@
   <div class="componente">
     <h2>As Informações de Usuário</h2>
     <p>Vários detalhes...</p>
-    <p>
-      Nome do usuário:
-      <strong>{{ invertName() }}</strong>
-    </p>
+    <p>Nome do usuário: <strong>{{ invertName() }}</strong></p>
+    <p>Idade do usuário: <strong>{{ userAge }}</strong></p>
     <button @click="restartName">Reiniciar Nome</button>
     <button @click="restartNameCallback()">Reiniciar Nome (Callback)</button>
   </div>
 </template>
 
 <script>
+import bus from "@/bus"
+
 export default {
   props: {
     userName: {
@@ -22,7 +22,8 @@ export default {
       //   },
       default: "Anônimo"
     },
-    restartNameCallback: Function
+    restartNameCallback: Function,
+    userAge: Number
   },
   methods: {
     invertName() {
@@ -34,6 +35,11 @@ export default {
     restartName() {
       this.$emit("changedName", 'Pedro')
     }
+  },
+  created() {
+    bus.onAgeChange(age => {
+      this.userAge = age
+    })
   }
 };
 </script>

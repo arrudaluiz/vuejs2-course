@@ -3,11 +3,22 @@
     <h1>Componente Usuário</h1>
     <p>Esse é um componente muito legal!</p>
     <p>Nome é <strong>{{ name }}</strong></p>
+    <p>Idade é <strong>{{ age }}</strong></p>
     <button @click="changeName">Alterar Nome</button>
     <hr />
     <div class="componentes">
-      <app-usuario-info :userName="name" @changedName="name = $event" :restartNameCallback="restartName" />
-      <app-usuario-editar />
+      <app-usuario-info
+        :userName="name"
+        :userAge="age"
+        @changedName="name = $event"
+        :restartNameCallback="restartName"
+      />
+      <app-usuario-editar
+        :userName="name"
+        :userAge="age"
+        @changedAge="age = $event"
+        :incrementAgeCallback="incrementAge"
+      />
     </div>
   </div>
 </template>
@@ -19,7 +30,8 @@ import AppUsuarioEditar from "./UsuarioEditar";
 export default {
   data() {
     return {
-      name: "Pedro"
+      name: "Pedro",
+      age: 21
     };
   },
   methods: {
@@ -27,7 +39,10 @@ export default {
       this.name = "Ana";
     },
     restartName() {
-        this.name = 'Pedro'
+      this.name = "Pedro";
+    },
+    incrementAge() {
+      this.age++
     }
   },
   components: { AppUsuarioInfo, AppUsuarioEditar }

@@ -1,14 +1,18 @@
 <template>
   <v-toolbar app>
     <v-toolbar-title class="headline text-uppercase">
-      <span>Desafio</span>
-      <span class="font-weight-light">Componente</span>
+      <span>{{ content.title }}</span>
+      <span class="font-weight-light">{{ content.subtitle }}</span>
     </v-toolbar-title>
   </v-toolbar>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    content: Object
+  }
+};
 </script>
 
 <style>
