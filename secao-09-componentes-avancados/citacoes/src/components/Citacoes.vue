@@ -5,7 +5,15 @@
       <button @click="numero++">&gt;</button>
     </span>
     <Citacao>
-      {{ citacoes[indice].texto }}
+      <!-- Slot "fonte" -->
+      <h6 slot="fonte">Fonte:</h6>
+      <h5 slot="fonte">{{ citacoes[indice].fonte }}</h5>
+      <!-- Slot "autor" -->
+      <h6 slot="autor">Autor:</h6>
+      <h1 slot="autor">{{ citacoes[indice].autor }}</h1>
+      <!-- Slot padrão -->
+      <h6>Texto:</h6>
+      <p>{{ citacoes[indice].texto }}</p>
     </Citacao>
   </div>
 </template>
@@ -42,6 +50,18 @@ export default {
     indice() {
       return Math.abs(this.numero % 3);
     }
+  },
+  created() {
+    console.log('created')
+  },
+  destroyed() {
+    console.log('destroyed')
+  },
+  activated() {
+    console.log('activated')
+  },
+  deactivated() {
+    console.log('deactivated')
   }
 };
 </script>
