@@ -1,7 +1,7 @@
 <template>
   <div class="new-task">
-    <input type="text" :placeholder="value" />
-    <button>
+    <input type="text" :placeholder="value" v-model="text" />
+    <button @click="submitText">
       <slot></slot>
     </button>
   </div>
@@ -14,8 +14,21 @@ export default {
       type: String,
       required: false
     }
+  },
+  data() {
+    return {
+      text: ''
+    }
+  },
+  methods: {
+    submitText() {
+      if (this.text.trim() != '') {
+        this.$emit('textSent', this.text)
+      }
+      this.text = ''
+    }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -26,6 +39,7 @@ export default {
   height: 30pt;
   margin-bottom: 30pt;
 }
+
 input {
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
@@ -36,6 +50,7 @@ input {
   border: 1px solid grey;
   border-right: none;
 }
+
 button {
   color: white;
   font-weight: 700;
