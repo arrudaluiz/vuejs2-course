@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <h1>Tarefas</h1>
-    <ProgressBar :progress="progress" />
+    <ProgressBar :progress="progressDone" :subProgress="progressDoing" />
     <NewTask :value="'Nova tarefa'" @textSent="input = $event">+</NewTask>
-    <TodoList :list="todoList" />
+    <TodoList :list="todoList" @todoRemoved="remove($event)" />
+    <h2 v-show="todoList.length == 0">Nenhuma tarefa registrada</h2>
   </div>
 </template>
 
@@ -15,17 +16,39 @@ import TodoList from '@/components/TodoList.vue'
 export default {
   data() {
     return {
-      progress: 50,
       input: '',
       todoList: []
     }
   },
+  computed: {
+    progressDone() {
+      return this.todoList.length != 0
+        ? (100 * this.todoList.filter(todo => todo.status == 0).length) /
+            this.todoList.length
+        : 0
+    },
+    progressDoing() {
+      return this.todoList.length != 0
+        ? (100 * this.todoList.filter(todo => todo.status == 1).length) /
+            this.todoList.length
+        : 0
+    }
+  },
   watch: {
     input() {
-      this.todoList.push({
-        content: this.input,
-        status: ['todo', 'doing', 'done']
-      })
+      const exists = this.todoList.findIndex(todo => todo.content == this.input)
+      if (exists == -1) {
+        this.todoList.push({
+          id: Date.now(),
+          content: this.input,
+          status: 2
+        })
+      }
+    }
+  },
+  methods: {
+    remove(todo) {
+      this.todoList.splice(this.todoList.indexOf(todo), 1)
     }
   },
   components: { ProgressBar, NewTask, TodoList }
@@ -54,5 +77,9 @@ body {
   margin-bottom: 5px;
   font-weight: 300;
   font-size: 3rem;
+}
+
+#app h2 {
+  font-weight: 300;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="todo-list">
-    <div class="item" v-for="(item, i) in list" :key="i">
-      <TodoListItem :item="item" />
+    <div class="item" v-for="item in list" :key="item.id">
+      <TodoListItem :item="item" @todoRemoved="$emit('todoRemoved', $event)" />
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .todo-list {
   display: flex;
   justify-content: center;

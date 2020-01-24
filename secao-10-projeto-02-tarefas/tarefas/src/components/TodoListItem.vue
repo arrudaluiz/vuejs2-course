@@ -1,10 +1,15 @@
 <template>
   <div
     class="todo-list-item"
-    :class="item.status[stat]"
+    :class="status[item.status]"
     @click="changeStatus()"
   >
-    <h2>{{ item.content }}</h2>
+    <div class="item-head">
+      <button @click="removeTodo()">X</button>
+    </div>
+    <div class="item-body">
+      <h2>{{ item.content }}</h2>
+    </div>
   </div>
 </template>
 
@@ -15,22 +20,23 @@ export default {
   },
   data() {
     return {
-      stat: 0
+      status: ['done', 'doing', 'todo']
     }
   },
   methods: {
     changeStatus() {
-      this.stat < 2 ? this.stat++ : (this.stat = 0)
+      this.item.status > 0 ? this.item.status-- : (this.item.status = 2)
+    },
+    removeTodo() {
+      this.$emit('todoRemoved', this.item)
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .todo-list-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   width: 200px;
   height: 100px;
   border-radius: 5pt;
@@ -44,14 +50,49 @@ export default {
 }
 
 .doing {
-  color: black;
-  border-left: 5pt solid orange;
-  background-color: yellow;
+  border-left: 5pt solid orangered;
+  background-color: orange;
 }
 
 .done {
   border-left: 5pt solid green;
   background-color: #49b057;
+}
+
+.done .item-body {
   text-decoration: line-through;
+}
+
+.item-head {
+  position: absolute;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.item-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.item-head button {
+  color: white;
+  font-weight: 700;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  border: none;
+  padding: 0;
+}
+
+.item-head * {
+  margin: 5pt;
 }
 </style>

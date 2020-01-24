@@ -1,7 +1,21 @@
 <template>
   <div class="progress-bar">
-    <div class="bar" :style="{ width: progress + '%' }"></div>
-    <div class="progress">{{ progress }}%</div>
+    <div
+      v-show="progress > 0"
+      class="bar progress curved-border-left"
+      :class="subProgress == 0 ? 'curved-border-right' : ''"
+      :style="{ width: progress + '%' }"
+    >
+      {{ Math.round(progress) }}%
+    </div>
+    <div
+      v-show="subProgress > 0"
+      class="bar sub-progress curved-border-right"
+      :class="progress == 0 ? 'curved-border-left' : ''"
+      :style="{ width: subProgress + '%' }"
+    >
+      {{ Math.round(subProgress) }}%
+    </div>
   </div>
 </template>
 
@@ -11,6 +25,10 @@ export default {
     progress: {
       type: Number,
       default: 0
+    },
+    subProgress: {
+      type: Number,
+      default: 0
     }
   }
 }
@@ -18,7 +36,7 @@ export default {
 
 <style scoped>
 .progress-bar {
-  position: relative;
+  display: flex;
   width: 100%;
   height: 15pt;
   border-radius: 5pt;
@@ -27,18 +45,27 @@ export default {
 }
 
 .bar {
-  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5pt;
   height: 100%;
-  border-radius: 4pt;
-  background-color: #49b057;
 }
 
 .progress {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  background-color: #49b057;
+}
+
+.sub-progress {
+  background-color: #ffa500;
+}
+
+.curved-border-left {
+  border-top-left-radius: 4pt;
+  border-bottom-left-radius: 4pt;
+}
+
+.curved-border-right {
+  border-top-right-radius: 4pt;
+  border-bottom-right-radius: 4pt;
 }
 </style>

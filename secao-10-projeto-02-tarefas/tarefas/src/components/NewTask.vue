@@ -1,6 +1,11 @@
 <template>
   <div class="new-task">
-    <input type="text" :placeholder="value" v-model="text" />
+    <input
+      type="text"
+      :placeholder="value"
+      @keyup.enter="submitText"
+      v-model="text"
+    />
     <button @click="submitText">
       <slot></slot>
     </button>
