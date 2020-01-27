@@ -7,22 +7,22 @@
 </template>
 
 <script>
-import TodoListItem from '@/components/TodoListItem.vue'
+  import TodoListItem from '@/components/TodoListItem.vue'
 
-export default {
-  props: {
-    list: Array
-  },
-  components: { TodoListItem }
-}
+  export default {
+    props: {
+      list: { type: Array, required: true }
+    },
+    components: { TodoListItem }
+  }
 </script>
 
 <style scoped>
-.todo-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-}
+  .todo-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
 </style>
