@@ -14,6 +14,7 @@
   import TodoList from '@/components/TodoList.vue'
 
   export default {
+    components: { ProgressBar, NewTask, TodoList },
     data() {
       return {
         input: '',
@@ -42,6 +43,12 @@
             content: this.input,
             status: 2
           })
+      },
+      todoList: {
+        deep: true,
+        handler() {
+          localStorage.setItem('todos', JSON.stringify(this.todoList))
+        }
       }
     },
     methods: {
@@ -50,7 +57,10 @@
         this.todoList.splice(i, 1)
       }
     },
-    components: { ProgressBar, NewTask, TodoList }
+    created() {
+      const json = localStorage.getItem('todos')
+      this.todoList = JSON.parse(json) || []
+    }
   }
 </script>
 
