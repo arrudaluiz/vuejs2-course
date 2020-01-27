@@ -3,15 +3,15 @@
     <div
       v-show="progress > 0"
       class="bar progress curved-border-left"
-      :class="subProgress == 0 ? 'curved-border-right' : ''"
+      :class="{ 'curved-border-right': subProgress == 0 }"
       :style="{ width: progress + '%' }"
     >
-      {{ Math.round(progress) }}%
+      {{ progress }}%
     </div>
     <div
       v-show="subProgress > 0"
       class="bar sub-progress curved-border-right"
-      :class="progress == 0 ? 'curved-border-left' : ''"
+      :class="{ 'curved-border-left': progress == 0 }"
       :style="{ width: subProgress + '%' }"
     >
       {{ subProgress }}%
