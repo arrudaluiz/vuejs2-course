@@ -8,7 +8,7 @@
         <div class="cabecalho">Formulário</div>
         <!-- Criar um componente personalizado -->
         <!-- Esse componente deve receber Nome e Sobrenome -->
-        <FullName v-model.lazy.trim="user.fullName" />
+        <FullName v-model="user.fullName" />
         <!-- Email -->
         <Rotulo nome="E-mail">
           <input type="text" v-model.lazy.trim="user.email" />

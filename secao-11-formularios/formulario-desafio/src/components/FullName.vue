@@ -1,18 +1,19 @@
 <template>
   <div>
     <Rotulo nome="Nome">
-      <input
-        type="text"
-        :value="value.firstName"
-        @input="changeName($event.target.value, value.lastName)"
-      />
+      <!--
+        Internamente, v-model usa diferentes propriedades
+        e emite diferentes eventos para diferentes elementos input:
+        Elementos text e textarea usam a propriedade value e emite o evento input.
+      -->
+      <input type="text" :value="value.firstName" @input="changeName" />
     </Rotulo>
     <Rotulo nome="Sobrenome">
-      <input
-        type="text"
-        :value="value.lastName"
-        @input="changeName(value.firstName, $event.target.value)"
-      />
+      <!--
+        Também é possível utilizar v-model dentro de um componente personalizado
+        emitindo eventos para o componente pai.
+      -->
+      <input type="text" v-model.lazy.trim="value.lastName" />
     </Rotulo>
   </div>
 </template>
@@ -22,6 +23,7 @@
 
   export default {
     props: {
+      // Prop interna do v-model
       value: {
         type: Object,
         required: true
@@ -29,8 +31,11 @@
     },
     components: { Rotulo },
     methods: {
-      changeName(first, last) {
-        this.$emit('input', { firstName: first, lastName: last })
+      changeName(event) {
+        this.$emit('input', {
+          firstName: event.target.value,
+          lastName: this.value.lastName
+        })
       }
     }
   }
