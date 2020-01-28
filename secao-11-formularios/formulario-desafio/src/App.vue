@@ -2,41 +2,37 @@
   <div id="app">
     <h1>Formulário Desafio</h1>
     <div class="conteudo">
+      <!-- Criar uma formulário de registro -->
+      <!-- Só mostrar o fomulário se não tiver sido submetido -->
       <form class="painel" v-if="!formSubmitted">
         <div class="cabecalho">Formulário</div>
-        <!-- Exercicio 01 -->
-        <!-- Criar uma formulário de registro -->
-        <!-- Nome completo (Nome e Sobrenome) -->
-        <Rotulo nome="Nome completo">
-          <input type="text" v-model.lazy.trim="user.firstName" />
-          <input type="text" v-model.lazy.trim="user.lastName" />
-        </Rotulo>
+        <!-- Criar um componente personalizado -->
+        <!-- Esse componente deve receber Nome e Sobrenome -->
+        <FullName v-model.lazy.trim="user.fullName" />
         <!-- Email -->
         <Rotulo nome="E-mail">
           <input type="text" v-model.lazy.trim="user.email" />
         </Rotulo>
         <!-- Senha -->
         <Rotulo nome="Senha">
-          <input type="text" v-model.lazy.trim="user.password" />
+          <input type="password" v-model.lazy.trim="user.password" />
         </Rotulo>
         <!-- Armazenar Dados? (Sim/Não) -->
         <Rotulo nome="Armazenar dados">
           <span><input type="checkbox" v-model="storeData" /> Confirmar</span>
         </Rotulo>
-        <!-- Exercicio 02 -->
-        <!-- Só mostrar o fomulário se não tiver sido submetido -->
-        <!-- Mostrar a área de Resultado apenas quando o formulário for submetido -->
-
-        <!-- Exercicio 03 -->
-        <!-- Crie um componente personalizado NomeCompleto -->
-        <!-- Esse componente deve receber Nome e Sobrenome -->
         <button @click.prevent="sendForm">Enviar</button>
       </form>
+
+      <!-- Mostrar a área de Resultado apenas quando o formulário for submetido -->
       <div class="painel" v-else>
         <div class="cabecalho">Resultado</div>
         <!-- Nome completo (Nome e Sobrenome) -->
-        <Rotulo nome="Nome completo">
-          <span>{{ user.firstName }} {{ user.lastName }}</span>
+        <Rotulo nome="Nome">
+          <span>{{ user.fullName.firstName }}</span>
+        </Rotulo>
+        <Rotulo nome="Sobrenome">
+          <span>{{ user.fullName.lastName }}</span>
         </Rotulo>
         <!-- Email -->
         <Rotulo nome="E-mail">
@@ -45,10 +41,6 @@
         <!-- Senha -->
         <Rotulo nome="Senha">
           <span>{{ user.password }}</span>
-        </Rotulo>
-        <!-- Armazenar Dados? (Sim/Não) -->
-        <Rotulo nome="Armazenar dados">
-          <span>{{ storeData }}</span>
         </Rotulo>
       </div>
     </div>
@@ -65,8 +57,7 @@
     data() {
       return {
         user: {
-          firstName: '',
-          lastName: '',
+          fullName: { firstName: '', lastName: '' },
           email: '',
           password: ''
         },
@@ -76,22 +67,16 @@
     },
     methods: {
       sendForm() {
-        if (this.storeData) {
-          localStorage.setItem('user', JSON.stringify(this.user))
-        } else {
-          localStorage.clear()
-        }
+        this.storeData
+          ? localStorage.setItem('user', JSON.stringify(this.user))
+          : localStorage.clear()
+
         this.formSubmitted = true
       }
     },
     created() {
       const json = localStorage.getItem('user')
-      this.user = JSON.parse(json) || {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-      }
+      json && (this.user = JSON.parse(json))
     }
   }
 </script>
