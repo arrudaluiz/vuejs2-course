@@ -5,8 +5,8 @@
     <p v-text="text"></p>
     <p v-html="html"></p>
     <hr />
-    <p v-highlight="'lightyellow'">Usando diretiva personalizada</p>
-    <p v-highlight="color">Usando diretiva personalizada</p>
+    <p v-highlight:background="'lightyellow'">Usando diretiva personalizada</p>
+    <p v-highlight:background="color">Usando diretiva personalizada</p>
   </div>
 </template>
 
