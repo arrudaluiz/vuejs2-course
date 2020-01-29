@@ -10,10 +10,12 @@
     </p>
     <p v-highlight.delay="color">Usando diretiva personalizada</p>
     <hr />
-    <p v-local-highlight:background.delay="'lightyellow'">
+    <p v-local-highlight:background.delay.switch="'lightyellow'">
       Usando diretiva personalizada local
     </p>
-    <p v-local-highlight.delay="color">Usando diretiva personalizada local</p>
+    <p v-local-highlight.delay.switch="color">
+      Usando diretiva personalizada local
+    </p>
   </div>
 </template>
 
@@ -22,17 +24,27 @@
     directives: {
       'local-highlight': {
         bind(el, binding) {
-          // el.style.backgroundColor = 'lightgreen'
+          const delay = binding.modifiers['delay'] ? 2000 : 0
 
-          let delay = 0
-          if (binding.modifiers['delay']) delay = 2000
+          const color1 = binding.value
+          const color2 = 'lightgray'
+          let currentColor = color1
+
+          const applyColor = color => {
+            if (binding.arg === 'background') {
+              el.style.backgroundColor = color
+            } else {
+              el.style.color = color
+            }
+          }
 
           setTimeout(() => {
-            if (binding.arg === 'background') {
-              el.style.backgroundColor = binding.value
-            } else {
-              el.style.color = binding.value
-            }
+            applyColor(currentColor)
+            binding.modifiers['switch'] &&
+              setInterval(() => {
+                currentColor = currentColor == color1 ? color2 : color1
+                applyColor(currentColor)
+              }, 1000)
           }, delay)
         }
       }
