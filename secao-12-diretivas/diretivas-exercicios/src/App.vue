@@ -10,7 +10,14 @@
     </p>
     <p v-highlight.delay="color">Usando diretiva personalizada</p>
     <hr />
-    <p v-local-highlight:background.delay.switch="'lightyellow'">
+    <p
+      v-local-highlight:background.delay.alter="{
+        color1: 'lightpink',
+        color2: 'lightgray',
+        delay: 1000,
+        alter: 700
+      }"
+    >
       Usando diretiva personalizada local
     </p>
     <p v-local-highlight.delay="color">
@@ -24,14 +31,13 @@
     directives: {
       'local-highlight': {
         bind(el, binding) {
-          const delay = binding.modifiers['delay'] ? 2000 : 0
-
-          const color1 = binding.value
-          const color2 = 'lightgray'
-          let currentColor = color1
+          const color1 = binding.value.color1
+          const delay = binding.modifiers['delay']
+            ? binding.value.delay || 1000
+            : 0
 
           const applyColor = color => {
-            if (binding.arg === 'background') {
+            if (binding.arg == 'background') {
               el.style.backgroundColor = color
             } else {
               el.style.color = color
@@ -39,12 +45,16 @@
           }
 
           setTimeout(() => {
-            applyColor(currentColor)
-            binding.modifiers['switch'] &&
+            applyColor(color1)
+            if (binding.modifiers['alter']) {
+              const alter = binding.value.alter || 1000
+              const color2 = binding.value.color2
+              let currentColor = color1
               setInterval(() => {
                 currentColor = currentColor == color1 ? color2 : color1
                 applyColor(currentColor)
-              }, 1000)
+              }, alter)
+            }
           }, delay)
         }
       }
@@ -55,7 +65,7 @@
           'Usando diretiva v-text. <strong>Tags HTML não são interpretadas</strong>',
         html:
           'Usando diretiva v-html <strong>(Cuidado com ataques XSS: tenha certeza a fonte da informação é segura.)</strong>',
-        color: 'lightgreen'
+        color: { color1: 'lightgreen', delay: 3000 }
       }
     }
   }
