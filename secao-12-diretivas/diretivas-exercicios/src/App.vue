@@ -13,7 +13,7 @@
     <p v-local-highlight:background.delay.switch="'lightyellow'">
       Usando diretiva personalizada local
     </p>
-    <p v-local-highlight.delay.switch="color">
+    <p v-local-highlight.delay="color">
       Usando diretiva personalizada local
     </p>
   </div>
