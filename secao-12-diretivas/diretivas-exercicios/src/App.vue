@@ -5,7 +5,8 @@
     <p v-text="text"></p>
     <p v-html="html"></p>
     <hr />
-    <p v-highlight>Usando diretiva personalizada</p>
+    <p v-highlight="'lightyellow'">Usando diretiva personalizada</p>
+    <p v-highlight="color">Usando diretiva personalizada</p>
   </div>
 </template>
 
@@ -16,7 +17,8 @@
         text:
           'Usando diretiva v-text. <strong>Tags HTML não são interpretadas</strong>',
         html:
-          'Usando diretiva v-html <strong>(Cuidado com ataques XSS: tenha certeza a fonte da informação é segura.)</strong>'
+          'Usando diretiva v-html <strong>(Cuidado com ataques XSS: tenha certeza a fonte da informação é segura.)</strong>',
+        color: 'lightgreen'
       }
     }
   }
