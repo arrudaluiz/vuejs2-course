@@ -3,5 +3,8 @@ export default {
     loggedUser() {
       return 'Maria Silva'
     }
+  },
+  created() {
+    console.log('Created: userMixin.js')
   }
 }

@@ -10,6 +10,15 @@ Vue.filter('reverse', function(value) {
     .join('')
 })
 
+Vue.mixin({
+  created() {
+    console.log('Created: main.js - Global mixin')
+  }
+})
+
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
+  created() {
+    console.log('Created: main.js - Vue instance')
+  }
 }).$mount('#app')

@@ -18,13 +18,13 @@
 </template>
 
 <script>
-  import fruitsMixin from './fruitsMixin'
   import userMixin from './userMixin'
+  import fruitsMixin from './fruitsMixin'
   import Fruits from './Fruits.vue'
 
   export default {
     components: { Fruits },
-    mixins: [fruitsMixin, userMixin],
+    mixins: [userMixin, fruitsMixin],
     filters: {
       cpf(value) {
         const arr = `${value}`.split('')
@@ -39,6 +39,9 @@
         studentCpf: '60070080090',
         fruits: ['abacate'] // Prioridade do component sobre o mixin
       }
+    },
+    created() {
+      console.log('Created: App.vue')
     }
   }
 </script>

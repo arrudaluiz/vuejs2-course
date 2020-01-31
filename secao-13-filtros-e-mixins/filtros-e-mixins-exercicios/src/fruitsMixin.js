@@ -10,5 +10,8 @@ export default {
       this.fruits.push(this.fruit)
       this.fruit = ''
     }
+  },
+  created() {
+    console.log('Created: fruitsMixin.js')
   }
 }
