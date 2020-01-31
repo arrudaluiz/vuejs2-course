@@ -4,24 +4,40 @@
     <hr />
     <!-- Exercício -->
     <!-- Escreva uma diretiva que funcione com o v-on (escute eventos) -->
-    <button v-do-this:click="expandBackground">Me clique</button>
+    <button v-dothis:click="alertAction">Me clique</button>
+    <p v-dothis:mouseenter="mouseEnter" v-dothis:mouseleave="mouseLeave">
+      Passe o mouse sobre mim.
+    </p>
   </div>
 </template>
 
 <script>
   export default {
     directives: {
-      'do-this': {
+      dothis: {
         bind(el, binding) {
-          if (binding.arg == 'click') {
-            el.addEventListener('click', binding.value)
-          }
+          const eventType = binding.arg
+          const fn = binding.value
+
+          el.addEventListener(
+            eventType,
+            () => {
+              fn(el)
+            },
+            false
+          )
         }
       }
     },
     methods: {
-      expandBackground() {
-        console.log('teste')
+      alertAction() {
+        alert('Ação executada!')
+      },
+      mouseEnter(element) {
+        element.style.backgroundColor = 'lightpink'
+      },
+      mouseLeave(element) {
+        element.style.backgroundColor = 'white'
       }
     }
   }
