@@ -2,7 +2,7 @@
   <div id="app">
     <h1>Filtros & Mixins</h1>
     <hr />
-    <p>{{ cpf | cpf }}</p>
+    <p>{{ studentCpf | cpf | reverse }}</p>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
   export default {
     filters: {
       cpf(value) {
-        const arr = value.split('')
+        const arr = `${value}`.split('')
         arr.splice(3, 0, '.')
         arr.splice(7, 0, '.')
         arr.splice(11, 0, '-')
@@ -19,7 +19,7 @@
     },
     data() {
       return {
-        cpf: '60070080090'
+        studentCpf: '60070080090'
       }
     }
   }
