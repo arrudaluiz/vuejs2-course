@@ -3,6 +3,7 @@
     <h1>Filtros & Mixins</h1>
     <hr />
     <p>{{ studentCpf | cpf | reverse }}</p>
+    <input type="text" :value="studentCpf | cpf" />
   </div>
 </template>
 
@@ -33,6 +34,10 @@
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+    font-size: 2.5rem;
+  }
+
+  input {
     font-size: 2.5rem;
   }
 </style>
