@@ -2,13 +2,29 @@
   <div id="app">
     <h1>Filtros & Mixins</h1>
     <hr />
+    <p>{{ loggedUser }}</p>
     <p>{{ studentCpf | cpf | reverse }}</p>
     <input type="text" :value="studentCpf | cpf" />
+    <hr />
+    <Fruits />
+    <hr />
+    <div>
+      <ul>
+        <li v-for="(fruit, i) in fruits" :key="i">{{ fruit }}</li>
+      </ul>
+      <input type="text" v-model="fruit" @keydown.enter="addFruit" />
+    </div>
   </div>
 </template>
 
 <script>
+  import fruitsMixin from './fruitsMixin'
+  import userMixin from './userMixin'
+  import Fruits from './Fruits.vue'
+
   export default {
+    components: { Fruits },
+    mixins: [fruitsMixin, userMixin],
     filters: {
       cpf(value) {
         const arr = `${value}`.split('')
@@ -20,7 +36,8 @@
     },
     data() {
       return {
-        studentCpf: '60070080090'
+        studentCpf: '60070080090',
+        fruits: ['abacate'] // Prioridade do component sobre o mixin
       }
     }
   }
