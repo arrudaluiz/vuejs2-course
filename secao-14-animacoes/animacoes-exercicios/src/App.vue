@@ -12,6 +12,13 @@
 		<transition name="slide" type="animation" appear>
       <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
     </transition>
+
+    <!-- https://daneden.github.io/animate.css/ -->
+		<transition
+      enter-active-class="animated fadeInLeft"
+      leave-active-class="animated fadeOutRight">
+      <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
+    </transition>
   </div>
 </template>
 
@@ -20,7 +27,7 @@
     data() {
       return {
         message: "Mensagem de informação",
-        visible: true
+        visible: false
       };
     }
   };
@@ -54,13 +61,21 @@
   */
 
   @keyframes slide-in {
-    from {transform: translateY(40px);}
-    to { transform: translateY(0); }
+    from {
+      transform: translateY(40px);
+    }
+    to {
+      transform: translateY(0);
+    }
   }
 
   @keyframes slide-out {
-    from { transform: translateY(0) }
-    to { transform: translateY(40px); }
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(40px);
+    }
   }
 
   .slide-enter-active {
