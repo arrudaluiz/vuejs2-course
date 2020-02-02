@@ -5,18 +5,27 @@
     <b-button variant="primary" class="mb-4"
 			@click="visible = !visible">Mostrar Mensagem</b-button>
     
-		<transition name="fade" appear>
+		<!-- <transition name="fade" appear>
       <b-alert variant="info" show v-if="visible">{{ message }}</b-alert>
     </transition>
 
 		<transition name="slide" type="animation" appear>
       <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
-    </transition>
+    </transition> -->
 
     <!-- https://daneden.github.io/animate.css/ -->
-		<transition
+		<!-- <transition
       enter-active-class="animated fadeInLeft"
       leave-active-class="animated fadeOutRight">
+      <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
+    </transition> -->
+
+    <b-select v-model="animationType" class="mb-4">
+      <option value="fade">Fade</option>
+      <option value="slide">Slide</option>
+    </b-select>
+
+		<transition :name="animationType">
       <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
     </transition>
   </div>
@@ -27,7 +36,8 @@
     data() {
       return {
         message: "Mensagem de informação",
-        visible: false
+        visible: false,
+        animationType: 'fade'
       };
     }
   };
