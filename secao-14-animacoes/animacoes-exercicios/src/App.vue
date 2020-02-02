@@ -5,7 +5,7 @@
     <b-button variant="primary" class="mb-4"
 			@click="visible = !visible">Mostrar Mensagem</b-button>
     
-		<transition class="fade">
+		<transition name="fade">
       <b-alert variant="info" show v-if="visible">{{ message }}</b-alert>
     </transition>
   </div>
@@ -33,21 +33,19 @@
     font-size: 1.5rem;
   }
 
-  .fade-enter {
-  }
-
-  .fade-enter-active {
-  }
-
-  .fade-enter-to {
-  }
-
-  .fade-leave {
-  }
-
-  .fade-leave-active {
-  }
-
+  .fade-enter,
   .fade-leave-to {
+    opacity: 0;
   }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 2s;
+  }
+  /* 
+  .fade-enter-to,
+  .fade-leave {
+    opacity: 1;
+  }
+  */
 </style>
