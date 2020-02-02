@@ -5,12 +5,12 @@
     <b-button variant="primary" class="mb-4"
 			@click="visible = !visible">Mostrar Mensagem</b-button>
     
-		<!-- <transition name="fade">
+		<transition name="fade" appear>
       <b-alert variant="info" show v-if="visible">{{ message }}</b-alert>
-    </transition> -->
+    </transition>
 
-		<transition name="slide" type="animation">
-      <b-alert variant="info" show v-if="visible">{{ message }}</b-alert>
+		<transition name="slide" type="animation" appear>
+      <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
     </transition>
   </div>
 </template>
@@ -20,7 +20,7 @@
     data() {
       return {
         message: "Mensagem de informação",
-        visible: false
+        visible: true
       };
     }
   };
@@ -70,7 +70,7 @@
 
   .slide-leave-active {
     animation: slide-out 2s ease-in;
-    transition: opacity 6s;
+    transition: opacity 2s;
   }
 
   .slide-enter,
