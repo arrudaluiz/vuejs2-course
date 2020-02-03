@@ -36,13 +36,9 @@
       :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
-      @after-enter="afterEnter"
-      @enter-cancelled="enterCancelled"
 
       @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
-      @leave-cancelled="leaveCancelled">
+      @leave="leave">
       <div v-if="visible2" class="box"></div>
     </transition>
   </div>
@@ -60,34 +56,33 @@
       };
     },
     methods: {
-      beforeEnter(el) {
-        console.log("beforeEnter");
-      },
-      enter(el, done) {
+      animate(el, done, width, duration, show) {
+        const interval = 16
+        const totalRound = duration / interval
+        const widthIncrement = this.baseWidth / totalRound
+
         let round = 1
         const timer = setInterval(() => {
-          const newWidth = this.baseWidth - (this.baseWidth - round * 10)
+          const newWidth = width + (round * show) * widthIncrement
           el.style.width = `${newWidth}px`
-        }, 20);
+          round++
+          if (round > totalRound) {
+            clearInterval(timer)
+            done()
+          }
+        }, interval);
       },
-      afterEnter(el) {
-        console.log("afterEnter");
+      beforeEnter(el) {
+        el.style.width = 0
       },
-      enterCancelled() {
-        console.log("enterCancelled");
+      enter(el, done) {
+        this.animate(el, done, el.clientWidth, 1000, true)
       },
       beforeLeave(el) {
-        console.log("beforeLeave");
+        el.style.width = `${this.baseWidth}px`
       },
       leave(el, done) {
-        console.log("leave");
-        done();
-      },
-      afterLeave(el) {
-        console.log("afterLeave");
-      },
-      leaveCancelled() {
-        console.log("leaveCancelled");
+        this.animate(el, done, el.clientWidth, 1000, false)
       }
     }
   };
