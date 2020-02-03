@@ -3,7 +3,7 @@
     <h1>Animações</h1>
     <hr />
     <b-button variant="primary" class="mb-4"
-			@click="visible = !visible">Mostrar Mensagem</b-button>
+			@click="visible = !visible">Alternar Mensagem</b-button>
     
 		<!-- <transition name="fade" appear>
       <b-alert variant="info" show v-if="visible">{{ message }}</b-alert>
@@ -33,6 +33,7 @@
     <hr>
     <button @click="visible2 = !visible2">{{ visible2 ? 'Ocultar' : 'Exibir' }}</button>
     <transition
+      :css="false"
       @before-enter="beforeEnter"
       @enter="enter"
       @after-enter="afterEnter"
@@ -54,7 +55,8 @@
         message: "Mensagem de informação",
         visible: false,
         visible2: true,
-        animationType: "fade"
+        animationType: "fade",
+        baseWidth: 300
       };
     },
     methods: {
@@ -62,8 +64,11 @@
         console.log("beforeEnter");
       },
       enter(el, done) {
-        console.log("enter");
-        done();
+        let round = 1
+        const timer = setInterval(() => {
+          const newWidth = this.baseWidth - (this.baseWidth - round * 10)
+          el.style.width = `${newWidth}px`
+        }, 20);
       },
       afterEnter(el) {
         console.log("afterEnter");
