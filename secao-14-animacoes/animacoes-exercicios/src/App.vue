@@ -29,6 +29,21 @@
       <b-alert variant="info" show v-if="visible" key="info">{{ message }}</b-alert>
       <b-alert variant="warning" show v-else key="warn">{{ message }}</b-alert>
     </transition>
+
+    <hr>
+    <button @click="visible2 = !visible2">{{ visible2 ? 'Ocultar' : 'Exibir' }}</button>
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @enter-cancelled="enterCancelled"
+
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      @leave-cancelled="leaveCancelled">
+      <div v-if="visible2" class="box"></div>
+    </transition>
   </div>
 </template>
 
@@ -38,8 +53,37 @@
       return {
         message: "Mensagem de informação",
         visible: false,
-        animationType: 'fade'
+        visible2: true,
+        animationType: "fade"
       };
+    },
+    methods: {
+      beforeEnter(el) {
+        console.log("beforeEnter");
+      },
+      enter(el, done) {
+        console.log("enter");
+        done();
+      },
+      afterEnter(el) {
+        console.log("afterEnter");
+      },
+      enterCancelled() {
+        console.log("enterCancelled");
+      },
+      beforeLeave(el) {
+        console.log("beforeLeave");
+      },
+      leave(el, done) {
+        console.log("leave");
+        done();
+      },
+      afterLeave(el) {
+        console.log("afterLeave");
+      },
+      leaveCancelled() {
+        console.log("leaveCancelled");
+      }
     }
   };
 </script>
@@ -53,6 +97,13 @@
     color: #2c3e50;
     margin-top: 60px;
     font-size: 1.5rem;
+  }
+
+  .box {
+    width: 300px;
+    height: 100px;
+    margin: 30px auto;
+    background-color: lightgreen;
   }
 
   .fade-enter,
