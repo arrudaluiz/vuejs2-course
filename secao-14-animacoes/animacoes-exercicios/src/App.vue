@@ -1,12 +1,11 @@
 <template>
   <div id="app" class="container-fluid">
     <h1>Animações</h1>
-    <hr />
-    <b-button variant="primary" class="mb-4" @click="visible = !visible"
-      >Alternar Mensagem</b-button
-    >
+    <!-- <hr />
+    <b-button variant="primary" class="mb-4"
+      @click="visible = !visible">Alternar Mensagem</b-button>
 
-    <!-- <transition name="fade" appear>
+    <transition name="fade" appear>
       <b-alert variant="info" show v-if="visible">{{ message }}</b-alert>
     </transition>
 
@@ -21,19 +20,19 @@
       <b-alert variant="info" show v-show="visible">{{ message }}</b-alert>
     </transition> -->
 
-    <b-select v-model="animationType" class="mb-4">
+    <!-- <b-select v-model="animationType" class="mb-4">
       <option value="fade">Fade</option>
       <option value="slide">Slide</option>
     </b-select>
 
     <transition :name="animationType" mode="out-in">
-      <b-alert variant="info" show v-if="visible" key="info">{{
-        message
-      }}</b-alert>
+      <b-alert variant="info" show v-if="visible" key="info">
+        {{ message }}
+      </b-alert>
       <b-alert variant="warning" show v-else key="warn">{{ message }}</b-alert>
-    </transition>
+    </transition> -->
 
-    <hr />
+    <!-- <hr />
     <button @click="visible2 = !visible2">
       {{ visible2 ? 'Ocultar' : 'Exibir' }}
     </button>
@@ -47,12 +46,11 @@
       @leave="leave"
       @after-leave="afterLeave"
       @leave-cancelled="leaveCancelled"
-      appear
-    >
+      appear>
       <div v-if="visible2" class="box"></div>
-    </transition>
+    </transition> -->
 
-    <hr />
+    <!-- <hr />
     <div class="mb-4">
       <b-button variant="primary" class="mr-2"
         @click="selectedComponent = 'InfoAlert'">Informação</b-button>
@@ -62,7 +60,23 @@
 
     <transition name="fade" mode="out-in">
       <component :is="selectedComponent"></component>
-    </transition>
+    </transition> -->
+
+    <hr />
+    <b-button variant="primary" class="mb-4" @click="studentCreate">
+      Adicionar Estudante
+    </b-button>
+    <b-list-group>
+      <transition-group name="slide" tag="div">
+        <b-list-group-item
+          v-for="(student, i) in students"
+          :key="student"
+          @click="studentRemove(i)"
+        >
+          {{ student }}
+        </b-list-group-item>
+      </transition-group>
+    </b-list-group>
   </div>
 </template>
 
@@ -74,6 +88,7 @@
     components: { WarningAlert, InfoAlert },
     data() {
       return {
+        students: ['Roberto', 'Julia', 'Teresa', 'Paulo'],
         message: 'Mensagem de informação',
         visible: false,
         visible2: true,
@@ -83,6 +98,15 @@
       }
     },
     methods: {
+      studentCreate() {
+        const s = Math.random()
+          .toString(36)
+          .substring(2)
+        this.students.push(s)
+      },
+      studentRemove(index) {
+        this.students.splice(index, 1)
+      },
       animate(el, done, show) {
         const interval = 20
         const roundTotal = 50
@@ -182,17 +206,23 @@
   }
 
   .slide-enter-active {
-    animation: slide-in 2s ease-out;
-    transition: opacity 2s;
+    animation: slide-in 1s ease-out;
+    transition: opacity 1s;
   }
 
   .slide-leave-active {
-    animation: slide-out 2s ease-in;
-    transition: opacity 2s;
+    position: absolute;
+    width: 100%;
+    animation: slide-out 1s ease-in;
+    transition: opacity 1s;
   }
 
   .slide-enter,
   .slide-leave-to {
     opacity: 0;
+  }
+
+  .slide-move {
+    transition: transform 1s;
   }
 </style>
