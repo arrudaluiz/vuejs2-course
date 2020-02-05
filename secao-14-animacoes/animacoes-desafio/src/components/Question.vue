@@ -1,22 +1,40 @@
 <template>
   <div class="question">
-    <h2>Pergunta teste</h2>
+    <h2>{{ question.text }}</h2>
     <ul class="answers">
-      <li><div class="number">1</div><p class="text">Teste 1</p></li>
-      <li><div class="number">2</div><p class="text">Teste 2</p></li>
-      <li><div class="number">3</div><p class="text">Teste 3</p></li>
-      <li><div class="number">4</div><p class="text">Teste 4</p></li>
+      <li
+        v-for="(answer, index) in question.answers"
+        :key="answer.text"
+        @click="sendAnswer(index)"
+      >
+        <div class="number">{{ index + 1 }}</div>
+        <p class="text">{{ answer.text }}</p>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    props: {
+      question: {
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      sendAnswer(i) {
+        this.$emit('sentAnswer', this.question.answers[i].correct)
+      }
+    }
+  }
 </script>
 
 <style>
   .question {
     height: 400px;
+    padding: 0;
+    margin: 0;
     color: #000;
     background-color: #fff;
     width: 70%;
@@ -28,19 +46,24 @@
     justify-content: space-around;
   }
 
+  .question h2 {
+    margin: 0;
+  }
+
   ul.answers {
     font-size: 2rem;
     padding: 0;
+    margin: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex-wrap: wrap;
   }
 
   .answers li {
-    margin: 20px;
     background-color: #89c454;
     border-radius: 8px;
     width: 40%;
+    margin: 10px;
 
     display: flex;
   }
@@ -52,9 +75,13 @@
     flex-basis: 30px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .answers .text {
+    margin: 0;
     flex: 1;
     align-self: center;
   }

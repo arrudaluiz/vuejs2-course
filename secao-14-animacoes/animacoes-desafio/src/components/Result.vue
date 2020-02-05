@@ -1,15 +1,20 @@
 <template>
-  <div class="result" :class="{ wrong }">
-    <p>{{ wrong ? 'Resposta incorreta.' : 'Resposta correta!' }}</p>
-    <button>Próxima Pergunta</button>
+  <div class="result" :class="{ wrong: !correct }">
+    <p>{{ correct ? 'Resposta correta!' : 'Resposta incorreta.' }}</p>
+    <button @click="nextQuestion">Próxima Pergunta</button>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        wrong: false
+    props: {
+      correct: {
+        type: Boolean,
+        required: true
+      },
+      nextQuestion: {
+        type: Function,
+        required: true
       }
     }
   }
