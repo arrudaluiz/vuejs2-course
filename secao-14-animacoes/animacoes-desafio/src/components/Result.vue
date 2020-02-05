@@ -1,7 +1,8 @@
 <template>
   <div class="result" :class="{ wrong: !correct }">
-    <p>{{ correct ? 'Resposta correta!' : 'Resposta incorreta.' }}</p>
-    <button @click="nextQuestion">Próxima Pergunta</button>
+    <span>{{ correct ? 'Resposta correta!' : 'Resposta incorreta.' }}</span>
+    <hr />
+    <button @click="$emit('confirmed')">Próxima Pergunta</button>
   </div>
 </template>
 
@@ -10,10 +11,6 @@
     props: {
       correct: {
         type: Boolean,
-        required: true
-      },
-      nextQuestion: {
-        type: Function,
         required: true
       }
     }
@@ -38,6 +35,7 @@
 
   .result hr {
     color: #fff;
+    width: 70%;
   }
 
   .result.wrong {

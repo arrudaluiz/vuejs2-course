@@ -1,14 +1,14 @@
 <template>
   <div class="question">
-    <h2>{{ question.text }}</h2>
+    <span>{{ question.text }}</span>
     <ul class="answers">
       <li
         v-for="(answer, index) in question.answers"
         :key="answer.text"
-        @click="sendAnswer(index)"
+        @click="$emit('sentAnswer', answer.correct)"
       >
-        <div class="number">{{ index + 1 }}</div>
-        <p class="text">{{ answer.text }}</p>
+        <span class="number">{{ index + 1 }}</span>
+        <span class="text">{{ answer.text }}</span>
       </li>
     </ul>
   </div>
@@ -21,11 +21,6 @@
         type: Object,
         required: true
       }
-    },
-    methods: {
-      sendAnswer(i) {
-        this.$emit('sentAnswer', this.question.answers[i].correct)
-      }
     }
   }
 </script>
@@ -33,8 +28,6 @@
 <style>
   .question {
     height: 400px;
-    padding: 0;
-    margin: 0;
     color: #000;
     background-color: #fff;
     width: 70%;
@@ -44,10 +37,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  }
-
-  .question h2 {
-    margin: 0;
   }
 
   ul.answers {
@@ -81,7 +70,6 @@
   }
 
   .answers .text {
-    margin: 0;
     flex: 1;
     align-self: center;
   }

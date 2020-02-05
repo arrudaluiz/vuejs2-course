@@ -1,16 +1,14 @@
 <template>
   <div id="app">
     <h1>Super Quiz</h1>
-    <div class="container">
-      <transition name="flip" appear>
+      <transition name="flip" mode="out-in" appear>
         <Question
           v-if="answering"
           :question="questions[index]"
           @sentAnswer="finishQuestion"
         />
-        <Result v-else :correct="correct" :nextQuestion="nextQuestion" />
+        <Result v-else :correct="correct" @confirmed="nextQuestion" />
       </transition>
-    </div>
   </div>
 </template>
 
@@ -60,6 +58,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   #app h1 {
@@ -94,11 +96,10 @@
   }
 
   .flip-enter-active {
-    animation: flip-in 0.3s ease;
+    animation: flip-in 0.3s ease-out;
   }
 
   .flip-leave-active {
-    position: absolute;
-    animation: flip-out 0.3s ease;
+    animation: flip-out 0.3s ease-in;
   }
 </style>
